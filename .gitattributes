@@ -1,0 +1,2 @@
+# Bash in Linux containers requires LF. CRLF breaks paths like .venv\r and "set -o pipefail\r".
+*.sh text eol=lf

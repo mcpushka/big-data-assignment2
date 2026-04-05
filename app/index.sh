@@ -1,8 +1,6 @@
 #!/bin/bash
-echo "This script include commands to run mapreduce jobs using hadoop streaming to index documents"
+set -euo pipefail
 
-echo "Input path is :"
-echo $1
-
-
-hdfs dfs -ls /
+DIR="$(dirname "$0")"
+bash "${DIR}/create_index.sh" "${1:-/input/data}"
+bash "${DIR}/store_index.sh"

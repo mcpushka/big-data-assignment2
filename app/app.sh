@@ -1,26 +1,24 @@
 #!/bin/bash
-# Start ssh server
-service ssh restart 
 
-# Starting the services
+service ssh restart
 bash start-services.sh
 
-# Creating a virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+hdfs dfsadmin -safemode wait || true
 
-# Install any packages
-pip install -r requirements.txt  
+export SEARCH_VENV="${SEARCH_VENV:-/tmp/search_venv}"
+rm -rf "${SEARCH_VENV}"
+python3 -m venv "${SEARCH_VENV}"
+# shellcheck source=/dev/null
+source "${SEARCH_VENV}/bin/activate"
 
-# Package the virtual env.
-venv-pack -o .venv.tar.gz
+pip install -U pip wheel setuptools
+pip install -r requirements.txt
 
-# Collect data
+venv-pack -o /app/.venv.tar.gz
+
 bash prepare_data.sh
-
-
-# Run the indexer
 bash index.sh
 
-# Run the ranker
-bash search.sh "this is a query!"
+export SPARK_SEARCH_MASTER="${SPARK_SEARCH_MASTER:-local[*]}"
+bash search.sh "history"
+echo "For YARN search: unset SPARK_SEARCH_MASTER; bash search.sh \"your phrase\"  —  http://localhost:8088/"
