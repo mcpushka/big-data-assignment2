@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 \"your search query\"" >&2
+  echo "Usage: $0 \"your query\"" >&2
   exit 1
 fi
 

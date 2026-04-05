@@ -17,7 +17,7 @@ def flush_docstats(buffer):
 
 
 def flush_term(term, buffer):
-    """Print VOCAB plus POSTING lines for one reduce key (term)."""
+    """Print VOCAB plus POSTING lines for one reduce key."""
     postings = []
     for v in buffer:
         if not v.startswith("POSTING\t"):

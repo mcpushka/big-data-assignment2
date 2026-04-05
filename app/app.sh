@@ -21,4 +21,4 @@ bash index.sh
 
 export SPARK_SEARCH_MASTER="${SPARK_SEARCH_MASTER:-local[*]}"
 bash search.sh "history"
-echo "For YARN search: unset SPARK_SEARCH_MASTER; bash search.sh \"your phrase\"  —  http://localhost:8088/"
+echo "For YARN search: unset SPARK_SEARCH_MASTER; bash search.sh \"your query\"  —  http://localhost:8088/"
